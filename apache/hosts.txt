@@ -1,0 +1,6 @@
+[staging_servers]
+linux1 ansible_host=ip adress of your server
+
+
+[production_servers]
+linux2 ansible_host=ip adress ofyour server
