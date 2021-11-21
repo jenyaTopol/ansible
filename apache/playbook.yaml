@@ -1,26 +1,24 @@
 ---
-- name: Install Apache and Upload my Web Page
+- name:  Install Apache and Upload my Web Page
   hosts: all
   become: yes
 
 
-vars:
-  source_file: ./MyWebSite/index.html
-  destin_file: /var/www/html
-  
+  vars:
+    source_file: ./MyWebSite/index.html
+    destin_file: /var/www/html
 
-tasks:
-- name:Install Apache Web Server
-  yum: name=httpd state=latest
-  
-- name: Copy MyhomePage to Servers
-  copy: src={{ source_file }} dest={{ destin_file }} mode=0555
-  notify: Restart Apache
+  tasks:
+  - name: Install Apache Web Server
+    yum: name=httpd state=latest
 
-- name: Start WebServer and make it enable on boot
-  service: name=httpd state=started enabled=yes
+  - name: Copy MyHomePage to Servers
+    copy: src={{ source_file }}  dest={{destin_file}} mode=0555
+    notify: Restart Apache
 
+  - name: start WebServer and make it enable on boot
+    service: name=httpd state=started enabled=yes
 
-handlers:
-- name:Restart Apache
-  servise: name=httpd state=started
+  handlers:
+  - name: Restart Apache
+    service: name=httpd state=restarted
